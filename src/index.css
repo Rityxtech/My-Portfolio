@@ -49,10 +49,6 @@
   }
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 #root {
   width: 100%;
   position: relative;

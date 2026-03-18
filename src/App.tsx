@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { Menu, X, Code2, Server, MonitorPlay, ExternalLink, Github, Cpu, Mail, Linkedin, Send, Twitter, Instagram, Quote, FileDown, Loader2, ArrowUp, Database, Globe, Zap, ShieldCheck, Home, User, Briefcase, ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useState, useEffect, Suspense, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
@@ -10,8 +10,10 @@ import PullToRefresh from './components/PullToRefresh';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [rotation, setRotation] = useState(0);
   const lastScrollY = useRef(0);
+
+  const { scrollY } = useScroll();
+  const rotation = useTransform(scrollY, [0, 1000], [0, 150]);
 
   const navLinks = [
     { name: 'Home', href: '#', id: 'home' },
@@ -42,9 +44,6 @@ const Navbar = () => {
           }
 
           setActiveSection(prev => prev !== current ? current : prev);
-
-          // Rotation logic rate-limited
-          setRotation(window.scrollY * 0.15);
 
           ticking = false;
         });
@@ -225,7 +224,7 @@ const Navbar = () => {
                     className="w-12 h-12 bg-brand-accent rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(99,102,241,0.5)] border-4 border-brand-darker"
                   >
                     <motion.div
-                      animate={{ rotate: rotation }}
+                      style={{ rotate: rotation }}
                       transition={{ type: "spring", damping: 30, stiffness: 200 }}
                       className="absolute inset-0 border-2 border-white/20 rounded-full border-dashed"
                     />
