@@ -489,7 +489,7 @@ const Hero = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="relative group w-[110px] sm:w-[180px] md:w-full md:max-w-[400px] aspect-square shrink-0 -ml-[15px] md:ml-0"
+          className="relative group w-[110px] sm:w-[180px] md:w-full md:max-w-[400px] aspect-square shrink-0 -ml-[15px] md:ml-0 self-center mt-[-28px] md:mt-0"
         >
           {/* Holographic Glow Rings */}
           <div className="absolute inset-0 -m-1 md:-m-8 border border-brand-accent/30 rounded-full animate-[spin_10s_linear_infinite] opacity-50 pointer-events-none"></div>
