@@ -42,7 +42,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         const info = await transporter.sendMail({
             from: '"RityXTech AI Notification" <info@rityxtech.com>', // MUST be verified domain in Brevo
-            to: 'info@rityxtech.com', // Admin inbox
+            to: 'rityxtech@gmail.com', // Admin inbox
             replyTo: email, // Reply directly to the submitter
             subject: `New website submission from ${name}`,
             html: `

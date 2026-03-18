@@ -45,7 +45,7 @@ async function startServer() {
 
       const info = await transporter.sendMail({
         from: '"RityXTech Notification" <info@rityxtech.com>', // MUST be verified domain
-        to: 'info@rityxtech.com',
+        to: 'rityxtech@gmail.com',
         replyTo: email, // Set visitor email as reply to
         subject: `New Contact Form Submission from ${name}`,
         html: `
