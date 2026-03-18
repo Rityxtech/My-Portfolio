@@ -67,3 +67,25 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
+/* Global Anti-Theft Protection for Images */
+img {
+  /* Prevent dragging */
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+
+  /* Prevent tap and hold on mobile (iOS/Safari) */
+  -webkit-touch-callout: none;
+
+  /* Prevent highlighting/selection */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  /* Completely bypass context menu and interactions (passes clicks to parent) */
+  pointer-events: none;
+}
