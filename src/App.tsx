@@ -450,8 +450,9 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-[22px] sm:text-3xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[1.1] mb-3 md:mb-5 flex flex-wrap sm:block whitespace-nowrap">
-              <span className="text-white mr-2">PRECISION OVER</span>
+            <h1 className="text-[22px] sm:text-3xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[1.1] mb-3 md:mb-5 flex flex-row justify-between w-full whitespace-nowrap">
+              <span className="text-white">PRECISION</span>
+              <span className="text-white">OVER</span>
               <span className="gradient-text italic">NOISE</span>
             </h1>
           </motion.div>
