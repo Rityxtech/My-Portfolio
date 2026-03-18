@@ -30,20 +30,23 @@ async function startServer() {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const senderApiToken = process.env.SENDER_API_TOKEN;
-
-    if (!senderApiToken) {
-      console.error("❌ SENDER_API_TOKEN is not set in local .env");
-      return res.status(500).json({ error: "Server configuration error: missing email service token" });
-    }
-
     try {
-      const payload = {
-        from: {
-          email: 'info@rityxtech.com', // Sender.net authorized domain identity
-          name: 'RityXTech Notification'
+      const transporter = nodemailer.createTransport({
+        host: "smtp-relay.brevo.com",
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        auth: {
+          user: process.env.SMTP_USER || "a557e1001@smtp-brevo.com",
+          pass: process.env.SMTP_KEY,
         },
+      });
+
+      console.log("Local Express: Sending Payload via Brevo SMTP...");
+
+      const info = await transporter.sendMail({
+        from: '"RityXTech Notification" <info@rityxtech.com>', // MUST be verified domain
         to: 'info@rityxtech.com',
+        replyTo: email, // Set visitor email as reply to
         subject: `New Contact Form Submission from ${name}`,
         html: `
           <h3>New website submission</h3>
@@ -53,32 +56,18 @@ async function startServer() {
           <p><strong>Message:</strong></p>
           <p>${message}</p>
         `
-      };
-
-      console.log("Local Express: Sending Payload via REST HTTP...");
-
-      const response = await fetch("https://api.sender.net/v2/message/send", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${senderApiToken}`,
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-        },
-        body: JSON.stringify(payload),
       });
 
-      const responseData = await response.json().catch(() => null);
-
-      if (!response.ok) {
-        console.error("❌ Local Express API Reject:", response.status, responseData);
-        return res.status(response.status).json({ error: "Failed to send email", details: responseData });
-      }
-
-      console.log("✅ Local Express: Email sent successfully via REST API", responseData);
+      console.log("✅ Local Express: Email sent successfully via Brevo SMTP", info.messageId);
       res.json({ success: true, message: "Email sent successfully" });
     } catch (error: any) {
-      console.error("❌ Error sending email:", error);
-      res.status(500).json({ error: "Internal server error", details: error.message });
+      console.error("❌ SMTP Delivery Failure:", {
+        message: error.message,
+        code: error.code,
+        response: error.response,
+        command: error.command
+      });
+      res.status(500).json({ error: "Failed to send email. Check server logs.", details: error.response || error.message });
     }
   });
 

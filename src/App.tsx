@@ -1476,11 +1476,14 @@ const Contact = () => {
           setFormData({ name: '', email: '', message: '' });
           setTimeout(() => setIsSubmitted(false), 5000);
         } else {
-          const data = await response.json();
-          setErrors({ submit: data.error || 'Failed to send message' });
+          const data = await response.json().catch(() => ({}));
+          const errorMessage = data.details
+            ? `${data.error} - ${typeof data.details === 'object' ? JSON.stringify(data.details) : data.details}`
+            : data.error || `Server Error ${response.status}: ${response.statusText}`;
+          setErrors({ submit: errorMessage });
         }
-      } catch (error) {
-        setErrors({ submit: 'An error occurred. Please try again later.' });
+      } catch (error: any) {
+        setErrors({ submit: `Network or Browser Error: ${error.message || 'Please try again later.'}` });
       } finally {
         setIsLoading(false);
       }

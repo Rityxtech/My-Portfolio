@@ -27,20 +27,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    const senderApiToken = process.env.SENDER_API_TOKEN;
-
-    if (!senderApiToken) {
-        console.error("❌ SENDER_API_TOKEN is missing from Vercel Environment variables.");
-        return res.status(500).json({ error: 'Server misconfiguration: API Token missing' });
-    }
-
     try {
-        const payload = {
-            from: {
-                email: 'info@rityxtech.com', // Must match your verified sender domain identity
-                name: 'RityXTech AI Notification'
+        const transporter = nodemailer.createTransport({
+            host: "smtp-relay.brevo.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+                user: process.env.SMTP_USER || "a557e1001@smtp-brevo.com",
+                pass: process.env.SMTP_KEY,
             },
-            to: 'info@rityxtech.com', // Where it delivers TO (your admin inbox)
+        });
+
+        console.log("Transmission initialized. Sending Payload via Brevo SMTP...");
+
+        const info = await transporter.sendMail({
+            from: '"RityXTech AI Notification" <info@rityxtech.com>', // MUST be verified domain in Brevo
+            to: 'info@rityxtech.com', // Admin inbox
+            replyTo: email, // Reply directly to the submitter
             subject: `New website submission from ${name}`,
             html: `
         <h3>New website submission</h3>
@@ -50,35 +53,18 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         <p><strong>Message:</strong></p>
         <p>${message}</p>
       `,
-        };
-
-        console.log("Transmission initialized. Sending Payload:", JSON.stringify(payload, null, 2));
-
-        const response = await fetch("https://api.sender.net/v2/message/send", {
-            method: "POST",
-            headers: {
-                "Authorization": `Bearer ${senderApiToken}`,
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify(payload),
         });
 
-        const responseData = await response.json().catch(() => null);
-
-        if (!response.ok) {
-            console.error("❌ Sender.net API Rejected Request:", response.status, responseData);
-            return res.status(response.status).json({
-                error: 'SENDER_API_ERROR',
-                details: responseData
-            });
-        }
-
-        console.log("✅ Email sent successfully via REST API:", responseData);
+        console.log("✅ Email sent successfully via Brevo SMTP:", info.messageId);
         return res.status(200).json({ message: 'Message sent successfully' });
 
     } catch (error: any) {
-        console.error('❌ Connection/Execution Failure:', error);
-        return res.status(500).json({ error: 'Failed to send message', details: error.message });
+        console.error("❌ Action Failed:", {
+            message: error.message,
+            code: error.code,
+            response: error.response,
+            command: error.command
+        });
+        return res.status(500).json({ error: 'Failed to send message', details: error.response || error.message });
     }
 }
