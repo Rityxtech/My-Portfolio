@@ -23,26 +23,37 @@ const Navbar = () => {
   ];
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const sections = ['about', 'skills', 'projects', 'testimonials', 'contact'];
-      let current = 'home';
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const sections = ['about', 'skills', 'projects', 'testimonials', 'contact'];
+          let current = 'home';
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 150) {
-            current = section;
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const rect = element.getBoundingClientRect();
+              if (rect.top <= 150) {
+                current = section;
+              }
+            }
           }
-        }
-      }
-      setActiveSection(current);
 
-      // Rotation logic
-      setRotation(window.scrollY * 0.15);
+          setActiveSection(prev => prev !== current ? current : prev);
+
+          // Rotation logic rate-limited
+          setRotation(window.scrollY * 0.15);
+
+          ticking = false;
+        });
+
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
