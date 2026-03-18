@@ -450,10 +450,10 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <h1 className="text-[22px] sm:text-3xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[1.1] mb-3 md:mb-5 flex flex-row justify-between w-full whitespace-nowrap">
-              <span className="text-white">PRECISION</span>
-              <span className="text-white">OVER</span>
-              <span className="gradient-text italic">NOISE</span>
+            <h1 className="relative z-20 text-[26px] sm:text-3xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[1.1] mb-3 md:mb-5 flex flex-row justify-between w-[130%] sm:w-[110%] md:w-full md:justify-start md:gap-6 whitespace-nowrap">
+              <span className="text-white drop-shadow-md">PRECISION</span>
+              <span className="text-white drop-shadow-md">OVER</span>
+              <span className="gradient-text italic opacity-95">NOISE</span>
             </h1>
           </motion.div>
 
@@ -603,15 +603,30 @@ const Stats = () => {
 
 const Certifications = () => {
   return (
-    <section className="pt-8 pb-4 md:py-16 overflow-hidden">
+    <section className="pt-4 pb-2 md:pt-8 md:pb-4 lg:py-16 overflow-hidden">
       <div className="w-full mx-auto px-2.5 md:px-12 lg:px-24">
-        <h2 className="text-center text-slate-500 uppercase tracking-[0.2em] text-[10px] md:text-sm font-bold mb-2.5 md:mb-12">Strategic Partnerships & Certifications</h2>
-        <div className="flex flex-wrap justify-center items-center gap-2.5 md:gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-          <div className="text-lg md:text-2xl font-bold tracking-tighter hover:scale-110 transition-transform">AWS Certified</div>
-          <div className="text-lg md:text-2xl font-bold tracking-tighter hover:scale-110 transition-transform">Google Cloud</div>
-          <div className="text-lg md:text-2xl font-bold tracking-tighter hover:scale-110 transition-transform">Meta Engineering</div>
-          <div className="text-lg md:text-2xl font-bold tracking-tighter hover:scale-110 transition-transform">Adobe Creative</div>
-          <div className="text-lg md:text-2xl font-bold tracking-tighter hover:scale-110 transition-transform">Microsoft Azure</div>
+        <h2 className="text-center text-slate-500 uppercase tracking-[0.2em] text-[10px] md:text-sm font-bold mb-2 md:mb-6">
+          <span className="md:hidden">Verified Credentials</span>
+          <span className="hidden md:inline">Strategic Partnerships & Certifications</span>
+        </h2>
+
+        {/* Desktop Layout */}
+        <div className="hidden md:flex flex-wrap justify-center items-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+          <div className="text-2xl font-bold tracking-tighter hover:scale-110 transition-transform">AWS Certified</div>
+          <div className="text-2xl font-bold tracking-tighter hover:scale-110 transition-transform">Google Cloud</div>
+          <div className="text-2xl font-bold tracking-tighter hover:scale-110 transition-transform">Meta Engineering</div>
+          <div className="text-2xl font-bold tracking-tighter hover:scale-110 transition-transform">Adobe Creative</div>
+          <div className="text-2xl font-bold tracking-tighter hover:scale-110 transition-transform">Microsoft Azure</div>
+        </div>
+
+        {/* Ultra-Compact Mobile Layout */}
+        <div className="flex md:hidden flex-wrap justify-center gap-1.5 w-full mx-auto">
+          {['AWS', 'G-Cloud', 'Meta iOS', 'Adobe', 'Azure'].map((cert) => (
+            <div key={cert} className="text-[9px] font-mono tracking-wider text-brand-glow bg-brand-accent/5 border border-brand-accent/20 px-2 py-1 rounded flex items-center gap-1">
+              <ShieldCheck className="w-2.5 h-2.5 text-brand-accent" />
+              {cert}
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -654,7 +669,7 @@ const About = () => {
           <div className="mt-[10px] md:mt-12">
             <button
               onClick={(e) => { e.preventDefault(); setShowResumeModal(true); }}
-              className="inline-flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 bg-brand-accent hover:bg-brand-glow text-white font-bold rounded-xl transition-all shadow-lg shadow-brand-accent/20 group"
+              className="inline-flex items-center justify-center gap-2 md:gap-3 px-5 py-2 md:px-8 md:py-4 text-sm md:text-base bg-brand-accent hover:bg-brand-glow text-white font-bold rounded-xl md:rounded-xl transition-all shadow-lg shadow-brand-accent/20 group"
             >
               <FileDown className="w-5 h-5 group-hover:animate-bounce" />
               Download Full Resume
@@ -667,12 +682,12 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
         >
-          <div className="rounded-2xl overflow-hidden glass-card p-6 font-mono text-sm leading-6 border border-brand-accent/30 shadow-2xl shadow-brand-accent/5">
-            <div className="flex gap-2 mb-4 border-b border-white/10 pb-2">
-              <div className="w-3 h-3 rounded-full bg-red-500"></div>
-              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-              <div className="w-3 h-3 rounded-full bg-green-500"></div>
-              <span className="ml-4 text-xs text-slate-500">aboutMe.ts</span>
+          <div className="rounded-xl md:rounded-2xl overflow-hidden glass-card p-3 md:p-6 font-mono text-sm leading-[1.3] md:leading-6 border border-brand-accent/30 shadow-2xl shadow-brand-accent/5">
+            <div className="flex gap-1.5 md:gap-2 mb-2 md:mb-4 border-b border-white/10 pb-1.5 md:pb-2 items-center">
+              <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-red-500"></div>
+              <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-yellow-500"></div>
+              <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-green-500"></div>
+              <span className="ml-2 md:ml-4 text-[10px] md:text-xs text-slate-500">aboutMe.ts</span>
             </div>
             <p><span className="text-purple-400">const</span> engineer = {'{'}</p>
             <p className="pl-4">name: <span className="text-brand-glow">'Rity'</span>,</p>
@@ -689,22 +704,22 @@ const About = () => {
       {/* Access Denied Modal */}
       <AnimatePresence>
         {showResumeModal && (
-          <>
+          <div key="resume-modal" className="fixed inset-0 z-[99990] flex items-end md:items-center justify-center pointer-events-auto">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowResumeModal(false)}
-              className="fixed inset-0 bg-black/60 backdrop-blur-md z-[99990] cursor-pointer"
+              className="absolute inset-0 bg-black/60 backdrop-blur-md cursor-pointer"
             />
             {/* Modal Container */}
             <motion.div
               initial={{ y: '100%', opacity: 0 }}
-              animate={{ y: 0, opacity: 1, x: "-50%", left: "50%", bottom: "0" }}
+              animate={{ y: 0, opacity: 1 }}
               exit={{ y: '100%', opacity: 0 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="fixed z-[99999] w-full md:w-auto md:min-w-[400px] bg-brand-darker border border-brand-accent/30 shadow-[0_-10px_40px_rgba(99,102,241,0.2)] md:shadow-[0_0_50px_rgba(99,102,241,0.4)] rounded-t-3xl md:rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center !bottom-0 md:!bottom-auto md:!top-1/2 md:!-translate-y-1/2"
+              className="relative w-full md:w-auto md:min-w-[400px] bg-brand-darker border border-brand-accent/30 shadow-[0_-10px_40px_rgba(99,102,241,0.2)] md:shadow-[0_0_50px_rgba(99,102,241,0.4)] rounded-t-3xl md:rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center"
             >
               <button
                 onClick={() => setShowResumeModal(false)}
@@ -730,7 +745,7 @@ const About = () => {
                 Request Access Now
               </button>
             </motion.div>
-          </>
+          </div>
         )}
       </AnimatePresence>
     </section>

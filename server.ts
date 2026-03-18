@@ -36,7 +36,7 @@ async function startServer() {
         port: 587,
         secure: false, // true for 465, false for other ports
         auth: {
-          user: process.env.SMTP_USER || "a557e1001@smtp-brevo.com",
+          user: process.env.SMTP_USER,
           pass: process.env.SMTP_KEY,
         },
       });
