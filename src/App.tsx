@@ -451,8 +451,8 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.9] mb-3 md:mb-5">
-              <span className="block text-white">CRAFTING THE</span>
-              <span className="block gradient-text italic">INFINITE</span>
+              <span className="block text-white">PRECISION OVER</span>
+              <span className="block gradient-text italic">NOISE</span>
             </h1>
           </motion.div>
 
@@ -647,7 +647,7 @@ const About = () => {
               On mobile, I develop cross-platform and native apps with <span className="text-brand-glow font-bold">Flutter, React Native, and Kotlin</span>. I also work with JWT for secure authentication and routinely scale systems spanning <span className="gradient-text font-bold">Docker, Cloudflare (R2, Stream), and Vercel</span>.
             </p>
             <p>
-              I’m big on <span className="text-white font-semibold">clean architecture, performance, and keeping things simple</span>—because great software shouldn’t feel complicated for users or engineering teams.
+              I’m big on <span className="text-white font-semibold">clean architecture, performance, and keeping things simple</span>, because great software shouldn’t feel complicated for users or engineering teams.
             </p>
           </div>
           <div className="mt-[10px] md:mt-12">
