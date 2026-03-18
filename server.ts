@@ -44,7 +44,7 @@ async function startServer() {
       console.log("Local Express: Sending Payload via Brevo SMTP...");
 
       const info = await transporter.sendMail({
-        from: '"RityXTech Notification" <info@rityxtech.com>', // MUST be verified domain
+        from: '"RityXTech Notification" <rityxtech@gmail.com>', // MUST be verified domain
         to: 'rityxtech@gmail.com',
         replyTo: email, // Set visitor email as reply to
         subject: `New Contact Form Submission from ${name}`,
