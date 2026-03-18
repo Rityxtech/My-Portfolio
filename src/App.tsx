@@ -638,10 +638,16 @@ const About = () => {
           <h2 className="text-2xl md:text-4xl font-bold mb-2.5 md:mb-6">The story behind the screen</h2>
           <div className="space-y-2.5 md:space-y-4 text-slate-400 leading-relaxed text-xs md:text-base">
             <p>
-              My career is defined by a relentless pursuit of technical excellence at the intersection of complex engineering and intuitive design. What began as a fascination with digital logic has evolved into a specialized mastery of architecting scalable full-stack ecosystems and high-performance mobile applications.
+              I’m a full-stack and mobile developer focused on building products that are <span className="text-white font-semibold">fast, scalable, and actually enjoyable to use.</span>
             </p>
             <p>
-              I specialize in transforming abstract concepts into production-ready solutions that prioritize speed, security, and seamless user interaction. By integrating advanced backend architectures with fluid, high-fidelity interfaces, I deliver digital products that not only function flawlessly but also drive meaningful business impact.
+              I craft responsive web experiences with <span className="text-brand-glow font-bold">React and Next.js (TypeScript)</span>, and build solid backend systems using <span className="text-brand-accent font-bold">Node.js, Express, and PHP</span>, working with <span className="gradient-text font-bold">PostgreSQL and MongoDB</span> to keep data flowing efficiently.
+            </p>
+            <p>
+              On mobile, I develop cross-platform and native apps with <span className="text-brand-glow font-bold">Flutter, React Native, and Kotlin</span>. I also work with JWT for secure authentication and routinely scale systems spanning <span className="gradient-text font-bold">Docker, Cloudflare (R2, Stream), and Vercel</span>.
+            </p>
+            <p>
+              I’m big on <span className="text-white font-semibold">clean architecture, performance, and keeping things simple</span>—because great software shouldn’t feel complicated for users or engineering teams.
             </p>
           </div>
           <div className="mt-[10px] md:mt-12">
