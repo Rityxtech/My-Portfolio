@@ -1,5 +1,5 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
-import { Menu, X, Code2, Server, MonitorPlay, ExternalLink, Github, Cpu, Mail, Linkedin, Send, Twitter, Instagram, Quote, FileDown, Loader2, ArrowUp, Database, Globe, Zap, ShieldCheck, Home, User, Briefcase, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Menu, X, Code2, Server, MonitorPlay, ExternalLink, Github, Cpu, Mail, Linkedin, Send, Twitter, Instagram, Quote, FileDown, Loader2, ArrowUp, Database, Globe, Zap, ShieldCheck, Home, User, Briefcase, ChevronLeft, ChevronRight, Lock } from 'lucide-react';
 import React, { useState, useEffect, Suspense, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { Canvas, useFrame } from '@react-three/fiber';
@@ -618,6 +618,13 @@ const Certifications = () => {
 };
 
 const About = () => {
+  const [showResumeModal, setShowResumeModal] = useState(false);
+
+  const scrollToContact = () => {
+    setShowResumeModal(false);
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section className="pt-4 pb-8 md:py-16 relative" id="about">
       <div className="w-full mx-auto px-2.5 md:px-12 lg:px-24 grid md:grid-cols-2 gap-2.5 md:gap-16 items-center">
@@ -638,13 +645,13 @@ const About = () => {
             </p>
           </div>
           <div className="mt-[10px] md:mt-12">
-            <a
-              href="#"
+            <button
+              onClick={(e) => { e.preventDefault(); setShowResumeModal(true); }}
               className="inline-flex items-center gap-3 px-6 py-3 md:px-8 md:py-4 bg-brand-accent hover:bg-brand-glow text-white font-bold rounded-xl transition-all shadow-lg shadow-brand-accent/20 group"
             >
               <FileDown className="w-5 h-5 group-hover:animate-bounce" />
               Download Full Resume
-            </a>
+            </button>
           </div>
         </motion.div>
         <motion.div
@@ -671,6 +678,54 @@ const About = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Access Denied Modal */}
+      <AnimatePresence>
+        {showResumeModal && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowResumeModal(false)}
+              className="fixed inset-0 bg-black/60 backdrop-blur-md z-[99990] cursor-pointer"
+            />
+            {/* Modal Container */}
+            <motion.div
+              initial={{ y: '100%', opacity: 0 }}
+              animate={{ y: 0, opacity: 1, x: "-50%", left: "50%", bottom: "0" }}
+              exit={{ y: '100%', opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="fixed z-[99999] w-full md:w-auto md:min-w-[400px] bg-brand-darker border border-brand-accent/30 shadow-[0_-10px_40px_rgba(99,102,241,0.2)] md:shadow-[0_0_50px_rgba(99,102,241,0.4)] rounded-t-3xl md:rounded-3xl p-6 md:p-8 flex flex-col items-center justify-center text-center !bottom-0 md:!bottom-auto md:!top-1/2 md:!-translate-y-1/2"
+            >
+              <button
+                onClick={() => setShowResumeModal(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-white bg-white/5 hover:bg-white/10 rounded-full p-2 transition-all"
+              >
+                <X className="w-5 h-5" />
+              </button>
+
+              <div className="w-16 h-16 rounded-full bg-brand-accent/10 flex items-center justify-center text-4xl mb-6 shadow-[inset_0_0_20px_rgba(99,102,241,0.3)]">
+                🥺
+              </div>
+
+              <h3 className="text-xl md:text-2xl font-bold mb-3 gradient-text">Access Restricted</h3>
+              <p className="text-slate-400 text-sm md:text-base leading-relaxed mb-8 max-w-[280px]">
+                You haven't been granted access to download the full architectural resume yet!
+              </p>
+
+              <button
+                onClick={scrollToContact}
+                className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-brand-indigo hover:bg-brand-accent border border-brand-accent/50 text-white font-bold rounded-xl transition-colors shadow-lg shadow-brand-accent/20"
+              >
+                <Lock className="w-5 h-5" />
+                Request Access Now
+              </button>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
