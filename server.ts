@@ -47,14 +47,22 @@ async function startServer() {
         from: '"RityXTech Notification" <rityxtech@gmail.com>', // MUST be verified domain
         to: 'rityxtech@gmail.com',
         replyTo: email, // Set visitor email as reply to
-        subject: `New Contact Form Submission from ${name}`,
+        subject: `Portfolio Notification`,
         html: `
-          <h3>New website submission</h3>
-          <p><strong>Name:</strong> ${name}</p>
-          <p><strong>Email:</strong> ${email}</p>
-          <hr/>
-          <p><strong>Message:</strong></p>
-          <p>${message}</p>
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
+            <h2 style="color: #6366f1; margin-top: 0; font-size: 20px;">RityXTech Portfolio</h2>
+            <p style="color: #64748b; font-size: 14px; margin-bottom: 24px;">You have received a new inquiry from your website.</p>
+            
+            <div style="background-color: #f8fafc; padding: 16px; border-radius: 6px; margin-bottom: 20px;">
+              <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>From:</strong> ${name}</p>
+              <p style="margin: 0; font-size: 14px;"><strong>Email:</strong> <a href="mailto:${email}" style="color: #6366f1; text-decoration: none;">${email}</a></p>
+            </div>
+            
+            <h4 style="color: #334155; margin-bottom: 10px; font-size: 14px;">Message:</h4>
+            <div style="background-color: #ffffff; padding: 16px; border-left: 4px solid #6366f1; color: #1e293b; line-height: 1.6; white-space: pre-wrap; font-size: 15px;">${message}</div>
+            
+            <p style="color: #94a3b8; font-size: 12px; margin-top: 30px; text-align: center;">Securely routed via Brevo Serverless Function</p>
+          </div>
         `
       });
 
