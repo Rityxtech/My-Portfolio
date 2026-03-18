@@ -6,6 +6,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, MeshDistortMaterial, Float, Sphere, MeshWobbleMaterial, Text, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
 import PullToRefresh from './components/PullToRefresh';
+import CustomScrollbar from './components/CustomScrollbar';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -1722,6 +1723,7 @@ const ScrollToTop = () => {
 export default function App() {
   return (
     <PullToRefresh>
+      <CustomScrollbar />
       <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden relative">
         <Navbar />
         <main className="flex flex-col md:block">

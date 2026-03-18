@@ -58,20 +58,12 @@ body {
   @apply bg-brand-darker text-slate-200 font-sans selection:bg-brand-accent selection:text-white overflow-x-hidden;
 }
 
-/* Custom Scrollbar */
+/* Hide Native Webkit Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: #120d2d;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #2e2463;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #6366f1;
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
