@@ -30,44 +30,55 @@ async function startServer() {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const smtpUser = process.env.SMTP_USER || "rityxtech@surepicker.com"; // Assumed sender login
-    const smtpPass = process.env.SMTP_PASSWORD || "WtZTmm2clADmZlua1vNki7JemPNIrOtE";
-    const recipientEmail = process.env.RECIPIENT_EMAIL || "rityxtech@surepicker.com";
+    const senderApiToken = process.env.SENDER_API_TOKEN;
+
+    if (!senderApiToken) {
+      console.error("❌ SENDER_API_TOKEN is not set in local .env");
+      return res.status(500).json({ error: "Server configuration error: missing email service token" });
+    }
 
     try {
-      // Configure Nodemailer for Sender.net SMTP
-      const transporter = nodemailer.createTransport({
-        host: "smtp.sender.net",
-        port: 587, // STARTTLS
-        secure: false, // Must be false for port 587
-        auth: {
-          user: smtpUser, // e.g., rityxtech@surepicker.com
-          pass: smtpPass, // WtZTmm2clADmZlua1vNki7JemPNIrOtE
+      const payload = {
+        from: {
+          email: 'info@rityxtech.com', // Sender.net authorized domain identity
+          name: 'RityXTech Notification'
         },
-      });
-
-      // Send the mail
-      const info = await transporter.sendMail({
-        from: `"RityXTech Portfolio" <${smtpUser}>`, // Must map to registered sender identity
-        to: recipientEmail,
-        replyTo: email, // Direct replies back to the site visitor's email
+        to: 'info@rityxtech.com',
         subject: `New Contact Form Submission from ${name}`,
-        text: `New Contact Form Submission\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`,
         html: `
-          <h3>New Contact Form Submission</h3>
+          <h3>New website submission</h3>
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
           <hr/>
           <p><strong>Message:</strong></p>
           <p>${message}</p>
-        `,
+        `
+      };
+
+      console.log("Local Express: Sending Payload via REST HTTP...");
+
+      const response = await fetch("https://api.sender.net/v2/message/send", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${senderApiToken}`,
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify(payload),
       });
 
-      console.log("Email sent successfully: %s", info.messageId);
+      const responseData = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        console.error("❌ Local Express API Reject:", response.status, responseData);
+        return res.status(response.status).json({ error: "Failed to send email", details: responseData });
+      }
+
+      console.log("✅ Local Express: Email sent successfully via REST API", responseData);
       res.json({ success: true, message: "Email sent successfully" });
     } catch (error: any) {
-      console.error("Nodemailer SMTP error:", error);
-      res.status(500).json({ error: "Failed to send email via SMTP", details: error.message });
+      console.error("❌ Error sending email:", error);
+      res.status(500).json({ error: "Internal server error", details: error.message });
     }
   });
 

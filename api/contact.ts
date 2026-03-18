@@ -27,24 +27,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         return res.status(400).json({ error: 'Missing required fields' });
     }
 
-    // Create transporter using Sender.net SMTP
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.sender.net',
-        port: 587,
-        secure: false, // TLS via STARTTLS
-        auth: {
-            user: process.env.SENDER_EMAIL || 'info@rityxtech.com',
-            pass: process.env.SENDER_PASSWORD, // Must be injected in Vercel Environment variables
-        },
-    });
+    const senderApiToken = process.env.SENDER_API_TOKEN;
+
+    if (!senderApiToken) {
+        console.error("❌ SENDER_API_TOKEN is missing from Vercel Environment variables.");
+        return res.status(500).json({ error: 'Server misconfiguration: API Token missing' });
+    }
 
     try {
-        // Send email to admin inbox
-        const info = await transporter.sendMail({
-            from: `"RityXTech Portfolio" <${process.env.SENDER_EMAIL || 'info@rityxtech.com'}>`, // Strict mapping to registered sender identity
-            to: 'info@rityxtech.com',
-            replyTo: email, // Extremely useful: Replies route directly to the user who filled the form
-            subject: `New Contact Form Message from ${name}`,
+        const payload = {
+            from: {
+                email: 'info@rityxtech.com', // Must match your verified sender domain identity
+                name: 'RityXTech AI Notification'
+            },
+            to: 'info@rityxtech.com', // Where it delivers TO (your admin inbox)
+            subject: `New website submission from ${name}`,
             html: `
         <h3>New website submission</h3>
         <p><strong>Name:</strong> ${name}</p>
@@ -53,12 +50,35 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         <p><strong>Message:</strong></p>
         <p>${message}</p>
       `,
+        };
+
+        console.log("Transmission initialized. Sending Payload:", JSON.stringify(payload, null, 2));
+
+        const response = await fetch("https://api.sender.net/v2/message/send", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${senderApiToken}`,
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+            },
+            body: JSON.stringify(payload),
         });
 
-        console.log("Email sent successfully: %s", info.messageId);
+        const responseData = await response.json().catch(() => null);
+
+        if (!response.ok) {
+            console.error("❌ Sender.net API Rejected Request:", response.status, responseData);
+            return res.status(response.status).json({
+                error: 'SENDER_API_ERROR',
+                details: responseData
+            });
+        }
+
+        console.log("✅ Email sent successfully via REST API:", responseData);
         return res.status(200).json({ message: 'Message sent successfully' });
+
     } catch (error: any) {
-        console.error('SMTP Payload Failure:', error);
+        console.error('❌ Connection/Execution Failure:', error);
         return res.status(500).json({ error: 'Failed to send message', details: error.message });
     }
 }
