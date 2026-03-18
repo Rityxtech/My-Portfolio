@@ -41,7 +41,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         console.log("Transmission initialized. Sending Payload via Brevo SMTP...");
 
         const info = await transporter.sendMail({
-            from: '"RityXTech AI Notification" <rityxtech@gmail.com>', // MUST be verified domain in Brevo
+            from: '"My Portfolio" <rityxtech@gmail.com>', // MUST be verified domain in Brevo
             to: 'rityxtech@gmail.com', // Admin inbox
             replyTo: email, // Reply directly to the submitter
             subject: `Portfolio Notification`,
