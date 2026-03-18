@@ -146,8 +146,8 @@ const Navbar = () => {
                           href={link.href}
                           onClick={() => setIsOpen(false)}
                           className={`group relative flex items-center gap-2.5 p-2.5 rounded-lg transition-all duration-300 overflow-hidden ${isActive
-                              ? 'text-white bg-brand-accent/10 shadow-[inset_0_0_20px_rgba(99,102,241,0.1)]'
-                              : 'text-slate-400 hover:text-white hover:bg-white/5'
+                            ? 'text-white bg-brand-accent/10 shadow-[inset_0_0_20px_rgba(99,102,241,0.1)]'
+                            : 'text-slate-400 hover:text-white hover:bg-white/5'
                             }`}
                         >
                           {isActive && (
@@ -1029,8 +1029,8 @@ const Projects = () => {
                 key={cat}
                 onClick={() => setFilter(cat)}
                 className={`whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition-all ${filter === cat
-                    ? 'bg-brand-accent text-white shadow-lg shadow-brand-accent/30'
-                    : 'bg-white/5 text-slate-400 hover:bg-white/10'
+                  ? 'bg-brand-accent text-white shadow-lg shadow-brand-accent/30'
+                  : 'bg-white/5 text-slate-400 hover:bg-white/10'
                   }`}
               >
                 {cat}
@@ -1056,8 +1056,8 @@ const Projects = () => {
               >
                 {/* Image Container with Gradient Background */}
                 <div className={`aspect-[16/10] overflow-hidden relative flex items-center justify-center ${project.category === 'Mobile App Development'
-                    ? 'bg-gradient-to-br from-emerald-400 to-teal-600'
-                    : 'bg-gradient-to-br from-indigo-500 to-purple-700'
+                  ? 'bg-gradient-to-br from-emerald-400 to-teal-600'
+                  : 'bg-gradient-to-br from-indigo-500 to-purple-700'
                   }`}>
                   <img
                     alt={project.title}
@@ -1091,8 +1091,8 @@ const Projects = () => {
               onClick={() => paginate(Math.max(1, currentPage - 1))}
               disabled={currentPage === 1}
               className={`p-2 rounded-full border border-white/10 transition-all ${currentPage === 1
-                  ? 'opacity-30 cursor-not-allowed'
-                  : 'hover:bg-brand-accent hover:border-brand-accent text-white'
+                ? 'opacity-30 cursor-not-allowed'
+                : 'hover:bg-brand-accent hover:border-brand-accent text-white'
                 }`}
             >
               <ChevronLeft size={20} />
@@ -1104,8 +1104,8 @@ const Projects = () => {
                   key={number}
                   onClick={() => paginate(number)}
                   className={`w-10 h-10 rounded-full font-bold text-sm transition-all border ${currentPage === number
-                      ? 'bg-brand-accent border-brand-accent text-white shadow-lg shadow-brand-accent/30'
-                      : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'
+                    ? 'bg-brand-accent border-brand-accent text-white shadow-lg shadow-brand-accent/30'
+                    : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10'
                     }`}
                 >
                   {number}
@@ -1117,8 +1117,8 @@ const Projects = () => {
               onClick={() => paginate(Math.min(totalPages, currentPage + 1))}
               disabled={currentPage === totalPages}
               className={`p-2 rounded-full border border-white/10 transition-all ${currentPage === totalPages
-                  ? 'opacity-30 cursor-not-allowed'
-                  : 'hover:bg-brand-accent hover:border-brand-accent text-white'
+                ? 'opacity-30 cursor-not-allowed'
+                : 'hover:bg-brand-accent hover:border-brand-accent text-white'
                 }`}
             >
               <ChevronRight size={20} />
@@ -1712,7 +1712,7 @@ const ScrollToTop = () => {
 export default function App() {
   return (
     <PullToRefresh>
-      <div className="min-h-screen">
+      <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden relative">
         <Navbar />
         <main className="flex flex-col md:block">
           <div className="order-none"><Hero /></div>
