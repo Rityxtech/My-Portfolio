@@ -1149,7 +1149,7 @@ const Projects = () => {
                   }`}>
                   <img
                     alt={project.title}
-                    className="w-[85%] h-[85%] object-contain transition-transform duration-700 group-hover:scale-105"
+                    className="w-[95%] h-[95%] object-cover rounded-tl-[1.5rem] rounded-tr-[1.5rem] transition-transform duration-700 group-hover:scale-105"
                     src={project.img}
                     referrerPolicy="no-referrer"
                   />
