@@ -985,7 +985,7 @@ const Projects = () => {
       category: "Web Apps",
       tags: ["Next.js", "Node.js", "Stripe"],
       desc: "A robust multi-vendor marketplace platform allowing multiple sellers to list products, featuring secure payments, vendor dashboards, and real-time order tracking.",
-      img: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=800&q=80",
+      img: "/project_marketplace.png",
       links: { demo: "#", github: "#" }
     },
     {
@@ -994,7 +994,7 @@ const Projects = () => {
       category: "Mobile App Development",
       tags: ["React Native", "Firebase"],
       desc: "A comprehensive fitness tracking application with real-time workout syncing, personalized training plans, and interactive progress visualizations.",
-      img: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=800&q=80",
+      img: "/project_fittrack.png",
       links: { demo: "#" }
     },
     {
@@ -1003,7 +1003,7 @@ const Projects = () => {
       category: "Web Apps",
       tags: ["TypeScript", "Tailwind"],
       desc: "A high-fidelity administrative interface designed for quantum computing startups, featuring real-time telemetry and advanced data filtering capabilities.",
-      img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80",
+      img: "/project_quantum_dashboard.png",
       links: { demo: "#", github: "#" }
     },
     {
@@ -1012,7 +1012,7 @@ const Projects = () => {
       category: "Mobile App Development",
       tags: ["Flutter", "Dart"],
       desc: "An innovative mobile app that uses AI to identify recyclable materials and provides local recycling guidelines to promote sustainable living.",
-      img: "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=800&q=80",
+      img: "/project_ecoscan.png",
       links: { demo: "#" }
     },
     {
@@ -1021,7 +1021,7 @@ const Projects = () => {
       category: "Web Apps",
       tags: ["React", "Node.js"],
       desc: "A cloud-based customer relationship management system with automated lead scoring and integrated communication tools.",
-      img: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80",
+      img: "/project_stellar_crm.png",
       links: { demo: "#", github: "#" }
     },
     {
@@ -1030,7 +1030,7 @@ const Projects = () => {
       category: "Mobile App Development",
       tags: ["Swift", "Core Audio"],
       desc: "A minimalist music player for iOS featuring high-fidelity audio playback and a unique gesture-based interface.",
-      img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80",
+      img: "/project_pulse_music.png",
       links: { demo: "#" }
     },
     {
@@ -1039,7 +1039,7 @@ const Projects = () => {
       category: "Mobile App Development",
       tags: ["Kotlin", "Android"],
       desc: "A secure and intuitive mobile banking application built with Kotlin, featuring real-time transaction tracking, biometric authentication, and seamless fund transfers.",
-      img: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+      img: "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?auto=format&fit=crop&w=800&q=80",
       links: { demo: "#" }
     },
     {
@@ -1048,7 +1048,7 @@ const Projects = () => {
       category: "Web Apps",
       tags: ["Vue.js", "Supabase"],
       desc: "A collaborative task management tool with real-time updates, kanban boards, and advanced team reporting.",
-      img: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&w=800&q=80",
+      img: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=800&q=80",
       links: { demo: "#", github: "#" }
     },
     {
@@ -1057,7 +1057,7 @@ const Projects = () => {
       category: "Mobile App Development",
       tags: ["Kotlin", "Android"],
       desc: "A feature-rich mobile application for reading and studying the Bible, built with Kotlin and focusing on offline accessibility and intuitive navigation.",
-      img: "https://images.unsplash.com/photo-1504052434569-70ad5836ab65?auto=format&fit=crop&w=800&q=80",
+      img: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80",
       links: { demo: "#" }
     }
   ];
