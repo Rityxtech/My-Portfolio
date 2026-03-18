@@ -451,7 +451,7 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.9] mb-3 md:mb-5">
-              <span className="block text-white">PRECISION OVER</span>
+              <span className="block text-white whitespace-nowrap">PRECISION OVER</span>
               <span className="block gradient-text italic">NOISE</span>
             </h1>
           </motion.div>
