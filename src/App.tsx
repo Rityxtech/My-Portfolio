@@ -578,9 +578,9 @@ const Stats = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-8">
           {[
             { label: 'Years of Expertise', value: 3, delay: 0 },
-            { label: 'Systems Architected', value: 45, delay: 0.1 },
+            { label: 'Systems Architected', value: 55, delay: 0.1 },
             { label: 'Technologies Mastered', value: 9, delay: 0.2 },
-            { label: 'Successful Deliveries', value: 15, delay: 0.3 },
+            { label: 'Successful Deliveries', value: 30, delay: 0.3 },
           ].map((stat, idx) => (
             <motion.div
               key={idx}
@@ -1040,7 +1040,7 @@ const Projects = () => {
       category: "Mobile App Development",
       tags: ["Kotlin", "Android"],
       desc: "A secure and intuitive mobile banking application built with Kotlin, featuring real-time transaction tracking, biometric authentication, and seamless fund transfers.",
-      img: "https://images.unsplash.com/photo-1607252650355-f7fd0460ccdb?auto=format&fit=crop&w=800&q=80",
+      img: "/project_banking_app.png",
       links: { demo: "#" }
     },
     {
@@ -1049,7 +1049,7 @@ const Projects = () => {
       category: "Web Apps",
       tags: ["Vue.js", "Supabase"],
       desc: "A collaborative task management tool with real-time updates, kanban boards, and advanced team reporting.",
-      img: "https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=800&q=80",
+      img: "/project_zenith_tasks.png",
       links: { demo: "#", github: "#" }
     },
     {
@@ -1058,7 +1058,7 @@ const Projects = () => {
       category: "Mobile App Development",
       tags: ["Kotlin", "Android"],
       desc: "A feature-rich mobile application for reading and studying the Bible, built with Kotlin and focusing on offline accessibility and intuitive navigation.",
-      img: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?auto=format&fit=crop&w=800&q=80",
+      img: "/project_bible_app.png",
       links: { demo: "#" }
     }
   ];
