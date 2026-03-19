@@ -5,6 +5,7 @@ import { QRCodeCanvas } from 'qrcode.react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, MeshDistortMaterial, Float, Sphere, MeshWobbleMaterial, Text, PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
+import { useLenis } from 'lenis/react';
 import PullToRefresh from './components/PullToRefresh';
 import CustomScrollbar from './components/CustomScrollbar';
 
@@ -14,7 +15,7 @@ const Navbar = () => {
   const lastScrollY = useRef(0);
 
   const { scrollY } = useScroll();
-  const rotation = useTransform(scrollY, [0, 1000], [0, 150]);
+  const rotation = useTransform(scrollY, (y) => y * 0.15);
 
   const navLinks = [
     { name: 'Home', href: '#', id: 'home' },
@@ -1762,6 +1763,7 @@ const Footer = () => {
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const lenis = useLenis();
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -1777,10 +1779,14 @@ const ScrollToTop = () => {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    if (lenis) {
+      lenis.scrollTo(0, { lerp: 0.1 });
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
   };
 
   return (
