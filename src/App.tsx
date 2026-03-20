@@ -577,7 +577,7 @@ const Stats = () => {
       <div className="w-full mx-auto px-2.5 md:px-12 lg:px-24">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 md:gap-8">
           {[
-            { label: 'Years of Expertise', value: 3, delay: 0 },
+            { label: 'Years of Expertise', value: 4, delay: 0 },
             { label: 'Systems Architected', value: 55, delay: 0.1 },
             { label: 'Technologies Mastered', value: 9, delay: 0.2 },
             { label: 'Successful Deliveries', value: 30, delay: 0.3 },
