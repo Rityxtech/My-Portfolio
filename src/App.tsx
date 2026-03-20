@@ -1677,7 +1677,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   className={`w-full bg-brand-darker border ${errors.name ? 'border-red-500/50' : 'border-white/10'} rounded-xl px-3 py-2 md:px-4 md:py-3 focus:border-brand-accent focus:ring-0 transition-all text-white outline-none text-sm`}
-                  placeholder="Jane Doe"
+                  placeholder="Dylan Harrison"
                   type="text"
                 />
                 {errors.name && <p className="text-red-500 text-[10px] mt-1 font-bold uppercase tracking-wider">{errors.name}</p>}
@@ -1689,7 +1689,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className={`w-full bg-brand-darker border ${errors.email ? 'border-red-500/50' : 'border-white/10'} rounded-xl px-3 py-2 md:px-4 md:py-3 focus:border-brand-accent focus:ring-0 transition-all text-white outline-none text-sm`}
-                  placeholder="jane@example.com"
+                  placeholder="dylan@example.com"
                   type="email"
                 />
                 {errors.email && <p className="text-red-500 text-[10px] mt-1 font-bold uppercase tracking-wider">{errors.email}</p>}
