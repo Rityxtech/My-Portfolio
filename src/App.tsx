@@ -492,9 +492,18 @@ const Hero = ({ baseDelay = 0 }: { baseDelay?: number }) => {
 
         {/* Engaging Visual: Interactive 3D Model Viewer (Right) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut", delay: baseDelay }}
+          initial={{ opacity: 0, scale: 0.8, rotate: 0 }}
+          animate={{ opacity: 1, scale: 1, rotate: [0, 2520, 3240] }}
+          transition={{
+            opacity: { duration: 1, delay: baseDelay },
+            scale: { duration: 1, ease: "easeOut", delay: baseDelay },
+            rotate: {
+              duration: 10.8,
+              times: [0, 0.63, 1],
+              ease: ["linear", "circOut"],
+              delay: baseDelay
+            }
+          }}
           className="relative group w-[110px] sm:w-[180px] md:w-full md:max-w-[400px] aspect-square shrink-0 -ml-[15px] md:ml-0 self-center mt-[-28px] md:mt-0"
         >
           {/* Holographic Glow Rings */}
@@ -519,12 +528,14 @@ const Hero = ({ baseDelay = 0 }: { baseDelay?: number }) => {
               referrerPolicy="no-referrer"
             />
 
-            {/* Animated Color Reveal Overlay */}
+            {/* Animated Color Reveal Overlay (waits for CD spin) */}
             <motion.img
               src="https://i.imgur.com/L3Dfbl6.jpeg"
               alt="RityXTech Profile Color"
               className="absolute inset-0 w-full h-full object-cover z-10"
+              initial={{ opacity: 0 }}
               animate={{
+                opacity: 1,
                 clipPath: [
                   "inset(0 0 100% 0)",
                   "inset(0 0 0% 0)",
@@ -532,17 +543,20 @@ const Hero = ({ baseDelay = 0 }: { baseDelay?: number }) => {
                 ]
               }}
               transition={{
-                duration: 10,
-                repeat: Infinity,
-                ease: "linear"
+                opacity: { duration: 1, delay: baseDelay + 10.8 },
+                clipPath: { duration: 10, repeat: Infinity, ease: "linear", delay: baseDelay + 10.8 }
               }}
               referrerPolicy="no-referrer"
             />
 
-            {/* Scanning Line Effect */}
+            {/* Scanning Line Effect (waits for CD spin to finish) */}
             <motion.div
-              animate={{ top: ["0%", "100%", "0%"] }}
-              transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+              initial={{ opacity: 0, top: "0%" }}
+              animate={{ opacity: 1, top: ["0%", "100%", "0%"] }}
+              transition={{
+                opacity: { duration: 1, delay: baseDelay + 10.8 },
+                top: { duration: 10, repeat: Infinity, ease: "linear", delay: baseDelay + 10.8 }
+              }}
               className="absolute left-0 right-0 h-[1px] md:h-1 bg-brand-accent shadow-[0_0_8px_#6366f1] md:shadow-[0_0_15px_#6366f1] z-20 pointer-events-none"
             />
           </div>
