@@ -8,6 +8,9 @@ import * as THREE from 'three';
 import { useLenis } from 'lenis/react';
 import PullToRefresh from './components/PullToRefresh';
 import CustomScrollbar from './components/CustomScrollbar';
+import { ScrambleText } from './components/ScrambleText';
+import { TypewriterText } from './components/TypewriterText';
+import { ParticleLoader } from './components/ParticleLoader';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -392,7 +395,7 @@ const StylizedAIObject = () => {
 };
 
 
-const Hero = () => {
+const Hero = ({ baseDelay = 0 }: { baseDelay?: number }) => {
   return (
     <section className="relative flex md:items-center md:justify-center pt-20 md:pt-36 pb-[10px] md:pb-16 md:min-h-[75vh] overflow-hidden bg-brand-darker mt-0" id="home">
       {/* Immersive Background Layer */}
@@ -449,7 +452,7 @@ const Hero = () => {
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2 + baseDelay }}
           >
             <h1 className="relative z-20 text-[26px] sm:text-3xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[1.1] mb-3 md:mb-5 flex flex-row justify-between w-[130%] sm:w-[110%] md:w-full md:justify-start md:gap-6 whitespace-nowrap">
               <span className="text-white drop-shadow-md">PRECISION</span>
@@ -461,18 +464,20 @@ const Hero = () => {
           <motion.p
             initial={{ opacity: 0, x: -15 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 0.8, delay: 0.4 + baseDelay }}
             className="text-xs sm:text-sm md:text-lg lg:text-xl text-slate-400 max-w-2xl mb-5 md:mb-8 font-medium leading-tight"
           >
-            Architecting high-performance full-stack and mobile ecosystems. I specialize in engineering
-            scalable, resilient, and user-centric applications that bridge the gap between complex
-            backend logic and seamless digital experiences.
+            <ScrambleText
+              text="Architecting high-performance full-stack and mobile ecosystems. I specialize in engineering scalable, resilient, and user-centric applications that bridge the gap between complex backend logic and seamless digital experiences."
+              duration={6}
+              revealDelay={0.8 + baseDelay}
+            />
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 0.8, delay: 0.6 + baseDelay }}
             className="flex flex-row items-center justify-start gap-3 md:gap-4 mb-[18px] md:mb-0"
           >
             <a className="group relative px-5 py-2.5 md:px-8 md:py-4 bg-brand-accent text-white text-[12px] md:text-base font-bold rounded-full overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(99,102,241,0.6)]" href="#projects">
@@ -489,7 +494,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 1, ease: "easeOut", delay: baseDelay }}
           className="relative group w-[110px] sm:w-[180px] md:w-full md:max-w-[400px] aspect-square shrink-0 -ml-[15px] md:ml-0 self-center mt-[-28px] md:mt-0"
         >
           {/* Holographic Glow Rings */}
@@ -653,20 +658,38 @@ const About = () => {
         >
           <span className="text-brand-accent font-mono text-xs md:text-sm mb-2.5 md:mb-4 block tracking-tighter">&lt;about-me /&gt;</span>
           <h2 className="text-2xl md:text-4xl font-bold mb-2.5 md:mb-6">The story behind the screen</h2>
-          <div className="space-y-2.5 md:space-y-4 text-slate-400 leading-relaxed text-xs md:text-base">
-            <p>
-              I’m a full-stack and mobile developer focused on building products that are <span className="text-white font-semibold">fast, scalable, and actually enjoyable to use.</span>
-            </p>
-            <p>
-              I craft responsive web experiences with <span className="text-brand-glow font-bold">React and Next.js (TypeScript)</span>, and build solid backend systems using <span className="text-brand-accent font-bold">Node.js, Express, and PHP</span>, working with <span className="gradient-text font-bold">PostgreSQL and MongoDB</span> to keep data flowing efficiently.
-            </p>
-            <p>
-              On mobile, I develop cross-platform and native apps with <span className="text-brand-glow font-bold">Flutter, React Native, and Kotlin</span>. I also work with JWT for secure authentication and routinely scale systems spanning <span className="gradient-text font-bold">Docker, Cloudflare (R2, Stream), and Vercel</span>.
-            </p>
-            <p>
-              I’m big on <span className="text-white font-semibold">clean architecture, performance, and keeping things simple</span>, because great software shouldn’t feel complicated for users or engineering teams.
-            </p>
-          </div>
+          <TypewriterText
+            className="space-y-2.5 md:space-y-4 text-slate-400 leading-relaxed text-xs md:text-base"
+            speed={45}
+            delay={0.4}
+            paragraphs={[
+              [
+                { text: "I’m a full-stack and mobile developer focused on building products that are " },
+                { text: "fast, scalable, and actually enjoyable to use.", className: "text-white font-semibold" }
+              ],
+              [
+                { text: "I craft responsive web experiences with " },
+                { text: "React and Next.js (TypeScript)", className: "text-brand-glow font-bold" },
+                { text: ", and build solid backend systems using " },
+                { text: "Node.js, Express, and PHP", className: "text-brand-accent font-bold" },
+                { text: ", working with " },
+                { text: "PostgreSQL and MongoDB", className: "gradient-text font-bold" },
+                { text: " to keep data flowing efficiently." }
+              ],
+              [
+                { text: "On mobile, I develop cross-platform and native apps with " },
+                { text: "Flutter, React Native, and Kotlin", className: "text-brand-glow font-bold" },
+                { text: ". I also work with JWT for secure authentication and routinely scale systems spanning " },
+                { text: "Docker, Cloudflare (R2, Stream), and Vercel", className: "gradient-text font-bold" },
+                { text: "." }
+              ],
+              [
+                { text: "I’m big on " },
+                { text: "clean architecture, performance, and keeping things simple", className: "text-white font-semibold" },
+                { text: ", because great software shouldn’t feel complicated for users or engineering teams." }
+              ]
+            ]}
+          />
           <div className="mt-[10px] md:mt-12">
             <button
               onClick={(e) => { e.preventDefault(); setShowResumeModal(true); }}
@@ -1807,36 +1830,43 @@ const ScrollToTop = () => {
 };
 
 export default function App() {
-  return (
-    <PullToRefresh>
-      <CustomScrollbar />
-      <div className="min-h-screen w-full max-w-[100vw] overflow-x-hidden relative">
-        <Navbar />
-        <main className="flex flex-col md:block">
-          <div className="order-none"><Hero /></div>
-          <div className="order-none"><Stats /></div>
-          <div className="order-none"><Certifications /></div>
-          <div className="order-none"><About /></div>
+  const [isLoading, setIsLoading] = useState(true);
 
-          <div className="contents md:block md:py-16 md:bg-brand-deep/30">
-            <div className="contents md:flex md:flex-row md:w-full md:mx-auto">
-              <div className="order-1 md:order-none md:w-1/2">
-                <Journey />
-              </div>
-              <div className="order-4 md:order-none md:w-1/2 md:border-l md:border-white/5">
-                <Horizon />
+  return (
+    <>
+      <AnimatePresence mode="wait">
+        {isLoading && <ParticleLoader key="loader" onComplete={() => setIsLoading(false)} />}
+      </AnimatePresence>
+      <PullToRefresh>
+        <CustomScrollbar />
+        <div className={`min-h-screen w-full max-w-[100vw] overflow-x-hidden relative ${isLoading ? 'h-screen overflow-hidden pointer-events-none' : ''}`}>
+          <Navbar />
+          <main className="flex flex-col md:block">
+            <div className="order-none"><Hero baseDelay={isLoading ? 6.8 : 0} /></div>
+            <div className="order-none"><Stats /></div>
+            <div className="order-none"><Certifications /></div>
+            <div className="order-none"><About /></div>
+
+            <div className="contents md:block md:py-16 md:bg-brand-deep/30">
+              <div className="contents md:flex md:flex-row md:w-full md:mx-auto">
+                <div className="order-1 md:order-none md:w-1/2">
+                  <Journey />
+                </div>
+                <div className="order-4 md:order-none md:w-1/2 md:border-l md:border-white/5">
+                  <Horizon />
+                </div>
               </div>
             </div>
-          </div>
 
-          <div className="order-2 md:order-none"><Skills /></div>
-          <div className="order-3 md:order-none"><Projects /></div>
-          <div className="order-5 md:order-none"><Testimonials /></div>
-          <div className="order-6 md:order-none"><Contact /></div>
-        </main>
-        <Footer />
-        <ScrollToTop />
-      </div>
-    </PullToRefresh>
+            <div className="order-2 md:order-none"><Skills /></div>
+            <div className="order-3 md:order-none"><Projects /></div>
+            <div className="order-5 md:order-none"><Testimonials /></div>
+            <div className="order-6 md:order-none"><Contact /></div>
+          </main>
+          <Footer />
+          <ScrollToTop />
+        </div>
+      </PullToRefresh>
+    </>
   );
 }
