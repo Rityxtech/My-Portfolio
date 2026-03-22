@@ -694,7 +694,7 @@ const About = () => {
                 { text: "On mobile, I develop cross-platform and native apps with " },
                 { text: "Flutter, React Native, and Kotlin", className: "text-brand-glow font-bold" },
                 { text: ". I also work with JWT for secure authentication and routinely scale systems spanning " },
-                { text: "Docker, Cloudflare (R2, Stream), and Vercel", className: "gradient-text font-bold" },
+                { text: "Docker, AWS (EC2, S3), Cloudflare (R2, Stream), and Vercel", className: "gradient-text font-bold" },
                 { text: "." }
               ],
               [
@@ -807,7 +807,7 @@ const Journey = () => {
             {
               year: '2024 - 2026',
               title: 'Full-Stack Freelance Developer',
-              desc: 'Transitioned to modern JavaScript ecosystems (React, Node.js), delivering 15+ end-to-end web applications with a focus on performance and user experience.',
+              desc: 'Transitioned to modern JavaScript ecosystems (React, Node.js), delivering 30+ end-to-end web applications with a focus on performance and user experience.',
               color: 'bg-brand-indigo',
               ring: 'ring-brand-indigo/20'
             },
@@ -969,7 +969,7 @@ const Skills = () => {
             <div className="space-y-2.5 md:space-y-6">
               {[
                 { name: 'UI/UX Strategy', val: 90, desc: 'Thriving at the intersection of code, design, and user experience for maximum impact.' },
-                { name: 'Cloudflare / Docker / Vercel', val: 85, desc: 'Optimizing delivery with Cloudflare (R2, Stream) and modern CI/CD deployment workflows.' },
+                { name: 'AWS / Docker / Cloud', val: 88, desc: 'Architecting scalable enterprise infrastructure (AWS EC2, S3), containerization, and edge networks.' },
                 { name: 'Framer Motion', val: 95, desc: 'Implementing fluid, production-ready animations and interactive gestures in React.' }
               ].map(skill => (
                 <SkillItem key={skill.name} name={skill.name} val={skill.val} color="text-brand-glow" barColor="bg-brand-glow" desc={skill.desc} />
