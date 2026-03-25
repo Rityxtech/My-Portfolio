@@ -9,6 +9,8 @@
   ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
   ![Flutter](https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white)
   ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+  ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
+  ![WordPress](https://img.shields.io/badge/WordPress-21759B?style=for-the-badge&logo=wordpress&logoColor=white)
   ![AWS](https://img.shields.io/badge/AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)
 
 </div>
@@ -39,7 +41,7 @@ A production-grade, interactive portfolio showcasing scalable systems, mobile ec
 |---|---|
 | **Frontend** | React 18, TypeScript, Vite, Tailwind CSS v4, Framer Motion |
 | **3D / Graphics** | Three.js, React Three Fiber, Drei |
-| **Backend / API** | Node.js, Express (via Vercel Serverless Functions) |
+| **Backend / API** | Node.js, Express (via Vercel Serverless Functions), PHP, WordPress |
 | **Database** | Supabase (PostgreSQL) |
 | **Auth** | JWT (jsonwebtoken) |
 | **Mobile** | Flutter, React Native, Kotlin |
