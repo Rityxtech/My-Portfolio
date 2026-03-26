@@ -1,5 +1,5 @@
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
-import { Menu, X, Code2, Server, MonitorPlay, ExternalLink, Github, Cpu, Mail, Linkedin, Send, Twitter, Instagram, Quote, FileDown, Loader2, ArrowUp, Database, Globe, Zap, ShieldCheck, Home, User, Briefcase, ChevronLeft, ChevronRight, Lock } from 'lucide-react';
+import { Menu, X, Code2, Server, MonitorPlay, ExternalLink, Github, Cpu, Mail, Linkedin, Send, Twitter, Instagram, Quote, FileDown, Loader2, ArrowUp, Database, Globe, Zap, ShieldCheck, Home, User, Briefcase, ChevronLeft, ChevronRight, Lock, Smartphone } from 'lucide-react';
 import React, { useState, useEffect, Suspense, useRef } from 'react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { Canvas, useFrame } from '@react-three/fiber';
@@ -190,9 +190,9 @@ const Navbar = () => {
 
                 <div className="p-2.5 border-t border-white/5 bg-black/20">
                   <div className="flex gap-4 mb-2.5 px-2.5">
-                    <a href="#" className="text-slate-500 hover:text-brand-accent transition-colors"><Twitter className="w-4 h-4" /></a>
-                    <a href="#" className="text-slate-500 hover:text-brand-accent transition-colors"><Github className="w-4 h-4" /></a>
-                    <a href="#" className="text-slate-500 hover:text-brand-accent transition-colors"><Linkedin className="w-4 h-4" /></a>
+                    <a href="https://x.com/RityXTech" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-brand-accent transition-colors"><Twitter className="w-4 h-4" /></a>
+                    <a href="https://github.com/Rityxtech" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-brand-accent transition-colors"><Github className="w-4 h-4" /></a>
+                    <a href="https://linkedin.com/in/rityxtech" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-brand-accent transition-colors"><Linkedin className="w-4 h-4" /></a>
                   </div>
                   <p className="text-[9px] px-2.5 text-slate-600 font-mono uppercase tracking-widest">© 2024 RityXTech</p>
                 </div>
@@ -982,6 +982,77 @@ const Skills = () => {
   );
 };
 
+const TagList = ({ tags }: { tags: string[] }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
+  const [visibleCount, setVisibleCount] = useState(tags.length);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const measurer = measureRef.current;
+    if (!container || !measurer) return;
+
+    const calculate = () => {
+      const containerWidth = container.offsetWidth;
+      const spans = Array.from(measurer.querySelectorAll<HTMLSpanElement>('[data-tag]'));
+      if (!spans.length) return;
+      const GAP = 8;
+      const BADGE_W = 42;
+      let acc = 0;
+      let fit = 0;
+      for (let i = 0; i < spans.length; i++) {
+        const w = spans[i].getBoundingClientRect().width;
+        const gap = i > 0 ? GAP : 0;
+        const isLast = i === spans.length - 1;
+        const limit = containerWidth - (isLast ? 0 : GAP + BADGE_W);
+        if (acc + gap + w <= limit) {
+          acc += gap + w;
+          fit++;
+        } else break;
+      }
+      setVisibleCount(Math.max(1, fit));
+    };
+
+    calculate();
+    const ro = new ResizeObserver(calculate);
+    ro.observe(container);
+    return () => ro.disconnect();
+  }, [tags]);
+
+  const overflow = tags.length - visibleCount;
+
+  return (
+    <div ref={containerRef} className="relative flex-1 min-w-0 flex items-center">
+      {/* Hidden measurement layer — always renders all tags to get accurate widths */}
+      <div
+        ref={measureRef}
+        aria-hidden
+        className="absolute flex gap-2 flex-nowrap invisible pointer-events-none"
+        style={{ left: 0, top: 0 }}
+      >
+        {tags.map(tag => (
+          <span key={tag} data-tag className="shrink-0 px-3 py-1 rounded-full text-[11px] font-medium border">
+            {tag}
+          </span>
+        ))}
+      </div>
+      {/* Visible row */}
+      <div className="flex gap-2 flex-nowrap overflow-hidden items-center">
+        {tags.slice(0, visibleCount).map(tag => (
+          <span key={tag} className="shrink-0 px-3 py-1 bg-indigo-500/10 text-indigo-300 rounded-full text-[11px] font-medium border border-indigo-500/10">
+            {tag}
+          </span>
+        ))}
+        {overflow > 0 && (
+          <span className="shrink-0 px-2.5 py-1 bg-white/5 text-slate-400 rounded-full text-[11px] font-bold border border-white/10">
+            +{overflow}
+          </span>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const ProjectLink = ({ href, icon: Icon, label, className }: { href: string, icon: any, label: string, className: string }) => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -1019,84 +1090,39 @@ const Projects = () => {
   const projects = [
     {
       id: 1,
-      title: "Multi-vendor Marketplace",
+      title: "Web Banking App",
       category: "Web Apps",
-      tags: ["Next.js", "Node.js", "Stripe"],
-      desc: "A robust multi-vendor marketplace platform allowing multiple sellers to list products, featuring secure payments, vendor dashboards, and real-time order tracking.",
-      img: "/project_marketplace.png",
-      links: { demo: "#", github: "#" }
+      tags: ["TypeScript", "React", "Vite", "Tailwind", "Vercel"],
+      desc: "A secure and high-performance web banking platform built with React + Vite (TypeScript), featuring real-time transaction tracking, biometric authentication, and seamless fund transfers — deployed on Vercel.",
+      img: "/banking app image.jpg",
+      links: { demo: "https://web-banking-theta.vercel.app" }
     },
     {
       id: 2,
-      title: "FitTrack Pro Mobile",
+      title: "Bible Mobile App",
       category: "Mobile App Development",
-      tags: ["React Native", "Firebase"],
-      desc: "A comprehensive fitness tracking application with real-time workout syncing, personalized training plans, and interactive progress visualizations.",
-      img: "/project_fittrack.png",
-      links: { demo: "#" }
+      tags: ["Flutter", "Dart", "C", "C++", "Swift", "CMake"],
+      desc: "A feature-rich cross-platform mobile application for reading and studying the Bible, built with Flutter spanning Dart, C/C++, Swift, and CMake for offline accessibility and seamless navigation.",
+      img: "/project_bible_app.png",
+      links: { demo: "https://rityxtech.github.io/Bible-app-flutter" }
     },
     {
       id: 3,
-      title: "Quantum Dashboard",
+      title: "Lotto Game",
       category: "Web Apps",
-      tags: ["TypeScript", "Tailwind"],
-      desc: "A high-fidelity administrative interface designed for quantum computing startups, featuring real-time telemetry and advanced data filtering capabilities.",
-      img: "/project_quantum_dashboard.png",
-      links: { demo: "#", github: "#" }
+      tags: ["React", "TypeScript", "Node.js", "Supabase", "Vite"],
+      desc: "An interactive online lottery platform where users can purchase tickets, pick their lucky numbers, and compete for real cash prizes — built with a secure backend, real-time draw results, and a sleek, engaging UI.",
+      img: "/lotto project image.png",
+      links: { demo: "https://lucky-lotto-nu.vercel.app/" }
     },
     {
       id: 4,
-      title: "EcoScan Mobile",
-      category: "Mobile App Development",
-      tags: ["Flutter", "Dart"],
-      desc: "An innovative mobile app that uses AI to identify recyclable materials and provides local recycling guidelines to promote sustainable living.",
-      img: "/project_ecoscan.png",
-      links: { demo: "#" }
-    },
-    {
-      id: 5,
-      title: "Stellar CRM",
+      title: "Developer Portfolio",
       category: "Web Apps",
-      tags: ["React", "Node.js"],
-      desc: "A cloud-based customer relationship management system with automated lead scoring and integrated communication tools.",
-      img: "/project_stellar_crm.png",
-      links: { demo: "#", github: "#" }
-    },
-    {
-      id: 6,
-      title: "Pulse Music Player",
-      category: "Mobile App Development",
-      tags: ["Swift", "Core Audio"],
-      desc: "A minimalist music player for iOS featuring high-fidelity audio playback and a unique gesture-based interface.",
-      img: "/project_pulse_music.png",
-      links: { demo: "#" }
-    },
-    {
-      id: 7,
-      title: "Mobile Banking App",
-      category: "Mobile App Development",
-      tags: ["Kotlin", "Android"],
-      desc: "A secure and intuitive mobile banking application built with Kotlin, featuring real-time transaction tracking, biometric authentication, and seamless fund transfers.",
-      img: "/project_banking_app.png",
-      links: { demo: "#" }
-    },
-    {
-      id: 8,
-      title: "Zenith Task Manager",
-      category: "Web Apps",
-      tags: ["Vue.js", "Supabase"],
-      desc: "A collaborative task management tool with real-time updates, kanban boards, and advanced team reporting.",
-      img: "/project_zenith_tasks.png",
-      links: { demo: "#", github: "#" }
-    },
-    {
-      id: 9,
-      title: "Bible Project",
-      category: "Mobile App Development",
-      tags: ["Kotlin", "Android"],
-      desc: "A feature-rich mobile application for reading and studying the Bible, built with Kotlin and focusing on offline accessibility and intuitive navigation.",
-      img: "/project_bible_app.png",
-      links: { demo: "#" }
+      tags: ["React", "TypeScript", "Vite", "Framer Motion", "Vercel"],
+      desc: "A high-fidelity personal portfolio website showcasing projects, skills, and experience built with React + Vite (TypeScript), featuring cinematic animations, a 3D profile render, and a custom AI-powered contact system.",
+      img: "/portfolio project image.jpg",
+      links: { demo: "https://my-portfolio-ochre-one-37.vercel.app/" }
     }
   ];
 
@@ -1185,6 +1211,17 @@ const Projects = () => {
                   ? 'bg-gradient-to-br from-emerald-400 to-teal-600'
                   : 'bg-gradient-to-br from-indigo-500 to-purple-700'
                   }`}>
+                  {/* Category Badge */}
+                  <div className={`absolute top-3 left-3 z-10 flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider backdrop-blur-md border shadow-lg ${project.category === 'Mobile App Development'
+                    ? 'bg-emerald-500/20 border-emerald-400/30 text-emerald-300'
+                    : 'bg-indigo-500/20 border-indigo-400/30 text-indigo-200'
+                    }`}>
+                    {project.category === 'Mobile App Development'
+                      ? <Smartphone className="w-3 h-3" />
+                      : <Globe className="w-3 h-3" />
+                    }
+                    {project.category === 'Mobile App Development' ? 'Mobile App' : 'Web App'}
+                  </div>
                   <img
                     alt={project.title}
                     className="w-[95%] h-[95%] object-cover rounded-tl-[1.5rem] rounded-tr-[1.5rem] transition-transform duration-700 group-hover:scale-105"
@@ -1197,12 +1234,24 @@ const Projects = () => {
                   <h3 className="text-xl md:text-2xl font-bold text-white mb-1">{project.title}</h3>
                   <p className="text-slate-400 text-sm md:text-base mb-2 line-clamp-2 leading-relaxed">{project.desc}</p>
 
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map(tag => (
-                      <span key={tag} className="px-3 py-1 bg-indigo-500/10 text-indigo-300 rounded-full text-[11px] font-medium border border-indigo-500/10">
-                        {tag}
+                  <div className="flex items-center gap-2">
+                    <TagList tags={project.tags} />
+                    {project.links.demo && project.links.demo !== '#' ? (
+                      <a
+                        href={project.links.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-auto shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-brand-accent/10 hover:bg-brand-accent text-brand-accent hover:text-white border border-brand-accent/30 hover:border-brand-accent rounded-full text-[11px] font-bold tracking-wide transition-all duration-300 hover:shadow-[0_0_15px_rgba(99,102,241,0.4)]"
+                      >
+                        <ExternalLink className="w-3 h-3" />
+                        View Demo
+                      </a>
+                    ) : (
+                      <span className="ml-auto shrink-0 flex items-center gap-1.5 px-3 py-1.5 bg-white/5 text-slate-500 border border-white/10 rounded-full text-[11px] font-bold tracking-wide cursor-not-allowed select-none">
+                        <ExternalLink className="w-3 h-3" />
+                        View Demo
                       </span>
-                    ))}
+                    )}
                   </div>
                 </div>
               </motion.div>
@@ -1782,14 +1831,14 @@ const Footer = () => {
           <span>RityX<span className="text-brand-accent">Tech</span></span>
         </div>
         <div className="flex justify-center gap-8 mb-4">
-          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-brand-accent transition-all duration-300 hover:scale-125 hover:rotate-6 hover:drop-shadow-[0_0_15px_#6366f1]">
+          <a href="https://x.com/RityXTech" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-brand-accent transition-all duration-300 hover:scale-125 hover:rotate-6 hover:drop-shadow-[0_0_15px_#6366f1]">
             <Twitter className="w-7 h-7 md:w-8 md:h-8" />
           </a>
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-brand-accent transition-all duration-300 hover:scale-125 hover:-rotate-6 hover:drop-shadow-[0_0_15px_#6366f1]">
-            <Instagram className="w-7 h-7 md:w-8 md:h-8" />
-          </a>
-          <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-brand-accent transition-all duration-300 hover:scale-125 hover:rotate-6 hover:drop-shadow-[0_0_15px_#6366f1]">
+          <a href="https://github.com/Rityxtech" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-brand-accent transition-all duration-300 hover:scale-125 hover:-rotate-6 hover:drop-shadow-[0_0_15px_#6366f1]">
             <Github className="w-7 h-7 md:w-8 md:h-8" />
+          </a>
+          <a href="https://linkedin.com/in/rityxtech" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-brand-accent transition-all duration-300 hover:scale-125 hover:rotate-6 hover:drop-shadow-[0_0_15px_#6366f1]">
+            <Linkedin className="w-7 h-7 md:w-8 md:h-8" />
           </a>
         </div>
         <p className="text-slate-500 text-[10px] md:text-sm">© 2023 RityXTech Portfolio. Built with React & Framer Motion logic.</p>
